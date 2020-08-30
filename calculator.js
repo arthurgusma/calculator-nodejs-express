@@ -39,16 +39,5 @@ function calculate(one, two, func) {
   }
 }
 
-function operator(option) {
-  if (option === 1) {
-    calculate(num1, num2, 1)
-  } else if (option === 2) {
-    calculate(num1, num2, 2)
-  } else if (option === 3) {
-    calculate(num1, num2, 3)
-  } else {
-    calculate(num1, num2, 4)
-  }
-}
 
 app.listen(3000);
