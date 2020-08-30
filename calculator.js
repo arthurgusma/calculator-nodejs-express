@@ -4,27 +4,51 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
-app.post("/", function(req, res) {
+app.post("/", (req, res) => {
   var num1 = Number(req.body.num1);
   var num2 = Number(req.body.num2);
-  var result = num1 + num2;
-  res.send("The sum of your inputs is: " + result)
+  res.send(calculate(num1, num2, req.body.submit))
+
 });
 
-app.get("/bmi", function(req, res) {
+app.get("/bmi", (req, res) => {
   res.sendFile(__dirname + "/bmiCalculator.html")
 });
 
-app.post("/bmi", function(req, res) {
+app.post("/bmi", (req, res) => {
  var height = Number(req.body.height);
  var weight = Number(req.body.weight);
  var result = weight / ((height / 100) * (height / 100));
 
  res.send("Your BMI is: " + result);
 });
+
+function calculate(one, two, func) {
+  if (func == 1) {
+    return ("The result of your inputs is: " + (one + two))
+  } else if (func == 2) {
+    return ("The result of your inputs is: " + (one - two))
+  } else if ( func == 3) {
+    return ("The result of your inputs is: " + (one * two))
+  } else {
+    return ("The result of your inputs is: " + (one / two))
+  }
+}
+
+function operator(option) {
+  if (option === 1) {
+    calculate(num1, num2, 1)
+  } else if (option === 2) {
+    calculate(num1, num2, 2)
+  } else if (option === 3) {
+    calculate(num1, num2, 3)
+  } else {
+    calculate(num1, num2, 4)
+  }
+}
 
 app.listen(3000);
